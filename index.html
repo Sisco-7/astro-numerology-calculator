@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 Cosmic Destiny Calculator</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --cosmic-gradient: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+            --golden: #ffd700;
+            --silver: #c0c0c0;
+            --purple: #8a2be2;
+            --pink: #ff69b4;
+            --cyan: #00ffff;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.12);
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            --glow: 0 0 25px rgba(255, 215, 0, 0.6);
+            --neon-glow: 0 0 15px rgba(255, 105, 180, 0.5), 0 0 25px rgba(0, 255, 255, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--cosmic-gradient);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            color: var(--white);
+        }
+
+        /* Animated Stars Background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background: var(--white);
+            border-radius: 50%;
+            animation: twinkle 1.8s infinite alternate;
+        }
+
+        .star:nth-child(odd) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(0.7); }
+            100% { opacity: 1; transform: scale(1.4); }
+        }
+
+        /* Floating Orbs */
+        .floating-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(45px);
+            pointer-events: none;
+            z-index: 2;
+            animation: float 7s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: clamp(160px, 22vw, 320px);
+            height: clamp(160px, 22vw, 320px);
+            background: radial-gradient(circle, rgba(255, 105, 180, 0.5) 0%, transparent 65%);
+            top: 8%;
+            left: 12%;
+        }
+
+        .orb-2 {
+            width: clamp(120px, 16vw, 240px);
+            height: clamp(120px, 16vw, 240px);
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.6) 0%, transparent 65%);
+            top: 55%;
+            right: 12%;
+            animation-delay: 2.5s;
+        }
+
+        .orb-3 {
+            width: clamp(90px, 12vw, 180px);
+            height: clamp(90px, 12vw, 180px);
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.5) 0%, transparent 65%);
+            bottom: 15%;
+            left: 18%;
+            animation-delay: 5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-25px) rotate(100deg); }
+            66% { transform: translateY(18px) rotate(200deg); }
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: clamp(1.5rem, 5vw, 2.5rem);
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+            animation: slideInFromTop 1.3s ease-out;
+        }
+
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--golden), var(--pink), var(--cyan), var(--purple), var(--golden));
+            background-size: 500% 500%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 5s ease-in-out infinite, glow 1.8s ease-in-out infinite alternate;
+            text-shadow: var(--neon-glow);
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 3.5vw, 1.4rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            line-height: 1.6;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 105, 180, 0.4); }
+            100% { text-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 105, 180, 0.6); }
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .glass-card:hover::before {
+            left: 100%;
+        }
+
+        /* Input Section */
+        .input-section {
+            padding: clamp(2rem, 5vw, 3rem);
+            margin-bottom: clamp(2.5rem, 6vw, 3.5rem);
+            animation: slideInFromLeft 1.2s ease-out 0.4s both;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 2.5rem;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--white);
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: clamp(0.9rem, 2.5vw, 1.2rem) 1.8rem;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--white);
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--golden);
+            box-shadow: var(--neon-glow);
+            transform: scale(1.02);
+        }
+
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        /* Buttons */
+        .calculate-btn, .share-btn {
+            width: 100%;
+            padding: clamp(1.2rem, 3.5vw, 1.8rem) 2.5rem;
+            border: none;
+            border-radius: 18px;
+            background: linear-gradient(45deg, var(--golden), var(--pink), var(--purple), var(--cyan));
+            background-size: 500% 500%;
+            color: var(--white);
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            font-weight: 700;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: gradientShift 5s ease-in-out infinite;
+            transition: all 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            box-shadow: var(--glow);
+        }
+
+        .calculate-btn:hover, .share-btn:hover {
+            transform: translateY(-6px) scale(1.04);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.6);
+        }
+
+        .calculate-btn:active, .share-btn:active {
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .calculate-btn::after, .share-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .calculate-btn:active::after, .share-btn:active::after {
+            width: 500px;
+            height: 500px;
+        }
+
+        /* Results Section */
+        .results-section {
+            display: none;
+            animation: slideInFromBottom 1.2s ease-out;
+        }
+
+        .results-section.show {
+            display: block;
+        }
+
+        .profile-card {
+            padding: clamp(2rem, 5vw, 2.5rem);
+            margin-bottom: clamp(2rem, 5vw, 2.5rem);
+            text-align: center;
+        }
+
+        .profile-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-item {
+            padding: 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.03);
+        }
+
+        /* Zodiac Section */
+        .zodiac-card {
+            padding: clamp(2rem, 5vw, 3rem);
+            margin-bottom: clamp(2rem, 5vw, 2.5rem);
+            text-align: center;
+        }
+
+        .zodiac-symbol {
+            font-size: clamp(4.5rem, 12vw, 6rem);
+            margin-bottom: 1.2rem;
+            animation: rotate360 30s linear infinite, pulse 2s ease-in-out infinite;
+        }
+
+        .zodiac-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 7vw, 3rem);
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--golden), var(--cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .zodiac-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: clamp(1.5rem, 4vw, 2rem);
+            margin-top: 2rem;
+        }
+
+        .detail-group {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.8rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .detail-group:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        @keyframes rotate360 {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Numerology Section */
+        .numerology-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: clamp(2rem, 5vw, 2.5rem);
+        }
+
+        .number-card {
+            padding: clamp(2rem, 5vw, 2.5rem);
+            text-align: center;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .number-card.expression {
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.3), rgba(138, 43, 226, 0.3));
+        }
+
+        .number-card.soul {
+            background: linear-gradient(135deg, rgba(0, 191, 255, 0.3), rgba(0, 255, 255, 0.3));
+        }
+
+        .number-card.personality {
+            background: linear-gradient(135deg, rgba(50, 205, 50, 0.3), rgba(0, 255, 127, 0.3));
+        }
+
+        .number-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--neon-glow);
+        }
+
+        .number-display {
+            font-size: clamp(3rem, 9vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            animation: pulse 1.8s ease-in-out infinite;
+        }
+
+        .number-title {
+            font-size: clamp(1.4rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+        }
+
+        .number-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.2rem;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Traits */
+        .traits-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+        }
+
+        .trait-tag {
+            background: rgba(255, 255, 255, 0.3);
+            color: var(--white);
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.4s ease;
+        }
+
+        .trait-tag:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.12);
+            box-shadow: var(--glow);
+        }
+
+        /* Analysis Section */
+        .analysis-section {
+            margin-top: clamp(2.5rem, 6vw, 3.5rem);
+        }
+
+        .analysis-card {
+            padding: clamp(2rem, 5vw, 3rem);
+            margin-bottom: clamp(2rem, 5vw, 2.5rem);
+        }
+
+        .analysis-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 5vw, 2.2rem);
+            font-weight: 700;
+            margin-bottom: 1.8rem;
+            text-align: center;
+            color: var(--golden);
+        }
+
+        .analysis-content {
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.8;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            text-align: justify;
+        }
+
+        /* Compatibility Section */
+        .compatibility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: clamp(1.5rem, 4vw, 2rem);
+            margin-top: 2rem;
+        }
+
+        .compatibility-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.8rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .compatibility-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-6px);
+            box-shadow: var(--neon-glow);
+        }
+
+        /* Share Section */
+        .share-section {
+            text-align: center;
+            margin-top: clamp(2rem, 5vw, 2.5rem);
+        }
+
+        /* Footer */
+        .cosmic-footer {
+            margin-top: clamp(3.5rem, 7vw, 5rem);
+            padding: clamp(2rem, 5vw, 3rem);
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+            font-weight: 700;
+            color: var(--golden);
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-content {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+            max-width: 1000px;
+            margin: 0 auto;
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+        }
+
+        .creator-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--golden), var(--pink));
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            color: var(--white);
+            font-weight: 700;
+            margin-top: 1.5rem;
+            animation: glow 1.8s ease-in-out infinite alternate;
+            box-shadow: var(--glow);
+        }
+
+        /* Animations */
+        @keyframes slideInFromTop {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideInFromLeft {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInFromBottom {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(25px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container { padding: 2rem; }
+            .main-title { font-size: clamp(2rem, 7vw, 4rem); }
+            .zodiac-symbol { font-size: clamp(3.5rem, 10vw, 5rem); }
+            .number-display { font-size: clamp(2.5rem, 8vw, 3.5rem); }
+        }
+
+        @media (max-width: 768px) {
+            .input-grid { grid-template-columns: 1fr; }
+            .numerology-grid { grid-template-columns: 1fr; }
+            .compatibility-grid { grid-template-columns: 1fr; }
+            .zodiac-details { grid-template-columns: 1fr; }
+            .floating-orb { filter: blur(35px); }
+            .input-section, .zodiac-card, .analysis-card { padding: 1.8rem; }
+            .number-card { padding: 1.8rem; }
+            .main-title { font-size: clamp(1.8rem, 6vw, 3rem); }
+            .subtitle { font-size: clamp(0.9rem, 3vw, 1.1rem); }
+        }
+
+        @media (max-width: 480px) {
+            .input-field { padding: 0.9rem 1.2rem; }
+            .calculate-btn, .share-btn { padding: 1.2rem; font-size: clamp(0.95rem, 3vw, 1.1rem); }
+            .profile-info { grid-template-columns: 1fr; }
+            .zodiac-symbol { font-size: clamp(3rem, 8vw, 4rem); }
+            .number-display { font-size: clamp(2rem, 6vw, 3rem); }
+            .analysis-title { font-size: clamp(1.4rem, 4vw, 1.8rem); }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            color: var(--white);
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            margin-top: 1.5rem;
+        }
+
+        .loading.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .spinner {
+            width: 28px;
+            height: 28px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--golden);
+            animation: spin 0.8s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Particle Canvas */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="stars" id="stars"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="main-title">
+                <i class="fas fa-star"></i> COSMIC DESTINY CALCULATOR <i class="fas fa-sparkles"></i>
+            </h1>
+            <p class="subtitle">
+                🌟 Unleash the secrets of the cosmos and embrace your stellar blueprint ✨<br>
+                Where ancient mysticism meets futuristic wonder
+            </p>
+        </div>
+
+        <!-- Input Section -->
+        <div class="glass-card input-section">
+            <div class="input-grid">
+                <div class="input-group">
+                    <label class="input-label">
+                        <i class="fas fa-calendar-alt"></i> Birth Date
+                    </label>
+                    <input type="date" id="birthDate" class="input-field" required>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">
+                        <i class="fas fa-user-astronaut"></i> Full Name
+                    </label>
+                    <input type="text" id="fullName" class="input-field" placeholder="Enter your full birth name" required>
+                </div>
+            </div>
+            <button class="calculate-btn" id="calculateBtn">
+                <i class="fas fa-rocket"></i> UNLEASH MY COSMIC DESTINY
+            </button>
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                Aligning the stars...
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="results">
+            <!-- Profile Card -->
+            <div class="glass-card profile-card">
+                <h2 class="analysis-title">
+                    <i class="fas fa-user-circle"></i> Your Cosmic Profile
+                </h2>
+                <div class="profile-info" id="profileInfo"></div>
+            </div>
+
+            <!-- Zodiac Section -->
+            <div class="glass-card zodiac-card" id="zodiacCard"></div>
+
+            <!-- Numerology Section -->
+            <div class="glass-card">
+                <div style="padding: clamp(2rem, 5vw, 2.5rem);">
+                    <h2 class="analysis-title">
+                        <i class="fas fa-calculator"></i> Your Sacred Numbers
+                    </h2>
+                    <div class="numerology-grid" id="numerologyGrid"></div>
+                </div>
+            </div>
+
+            <!-- Detailed Analysis -->
+            <div class="analysis-section">
+                <div class="glass-card analysis-card">
+                    <h2 class="analysis-title">
+                        <i class="fas fa-scroll"></i> Deep Cosmic Analysis
+                    </h2>
+                    <div class="analysis-content" id="analysisContent"></div>
+                </div>
+
+                <div class="glass-card analysis-card">
+                    <h2 class="analysis-title">
+                        <i class="fas fa-heart"></i> Compatibility & Relationships
+                    </h2>
+                    <div class="compatibility-grid" id="compatibilityGrid"></div>
+                </div>
+
+                <!-- Share Section -->
+                <div class="share-section">
+                    <button class="share-btn" id="shareBtn">
+                        <i class="fas fa-share-alt"></i> Share Your Cosmic Destiny
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="cosmic-footer">
+            <h3 class="footer-title">✨ Embark on Your Cosmic Quest ✨</h3>
+            <div class="footer-content">
+                <p>Dive into the universe with our advanced astrology and numerology calculator, where ancient wisdom fuses with stellar tech to reveal your cosmic essence.</p>
+                <p style="margin-top: 1.2rem;">Powered by precise astronomical data and Pythagorean numerology, we craft a unique blueprint of your destiny, guiding your path to self-discovery.</p>
+                <p style="margin-top: 1.2rem;">The stars light the way, but you shape your fate. Embrace your cosmic journey!</p>
+                <div class="creator-badge">
+                    Forged with cosmic passion by Sisco Ask💜
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create animated stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numStars = window.innerWidth < 768 ? 120 : 250;
+
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 1.8 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Particle Trail
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        function createParticle(x, y) {
+            return {
+                x, y,
+                size: Math.random() * 2.5 + 1,
+                speedX: Math.random() * 1.5 - 0.75,
+                speedY: Math.random() * 1.5 - 0.75,
+                life: 80,
+                color: `hsl(${Math.random() * 60 + 40}, 80%, 60%)`
+            };
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() < 0.3) {
+                particles.push(createParticle(e.clientX, e.clientY));
+            }
+        });
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles = particles.filter(p => p.life > 0);
+            particles.forEach(p => {
+                p.x += p.speedX;
+                p.y += p.speedY;
+                p.life--;
+                p.size *= 0.97;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        // Zodiac data
+        const zodiacData = {
+            'Aries': { 
+                symbol: '♈', 
+                element: 'Fire', 
+                dates: 'March 21 - April 19',
+                traits: ['Leadership', 'Courage', 'Energetic', 'Independent', 'Pioneering', 'Competitive'],
+                compatibility: ['Leo', 'Sagittarius', 'Gemini', 'Aquarius'],
+                ruling: 'Mars',
+                color: '#FF6B6B'
+            },
+            'Taurus': { 
+                symbol: '♉', 
+                element: 'Earth', 
+                dates: 'April 20 - May 20',
+                traits: ['Reliable', 'Patient', 'Practical', 'Loyal', 'Sensual', 'Stubborn'],
+                compatibility: ['Virgo', 'Capricorn', 'Cancer', 'Pisces'],
+                ruling: 'Venus',
+                color: '#4ECDC4'
+            },
+            'Gemini': { 
+                symbol: '♊', 
+                element: 'Air', 
+                dates: 'May 21 - June 20',
+                traits: ['Adaptable', 'Curious', 'Witty', 'Social', 'Intellectual', 'Versatile'],
+                compatibility: ['Libra', 'Aquarius', 'Aries', 'Leo'],
+                ruling: 'Mercury',
+                color: '#FFE66D'
+            },
+            'Cancer': { 
+                symbol: '♋', 
+                element: 'Water', 
+                dates: 'June 21 - July 22',
+                traits: ['Nurturing', 'Intuitive', 'Protective', 'Emotional', 'Caring', 'Sensitive'],
+                compatibility: ['Scorpio', 'Pisces', 'Taurus', 'Virgo'],
+                ruling: 'Moon',
+                color: '#A8E6CF'
+            },
+            'Leo': { 
+                symbol: '♌', 
+                element: 'Fire', 
+                dates: 'July 23 - August 22',
+                traits: ['Confident', 'Generous', 'Creative', 'Dramatic', 'Charismatic', 'Proud'],
+                compatibility: ['Aries', 'Sagittarius', 'Gemini', 'Libra'],
+                ruling: 'Sun',
+                color: '#FFD93D'
+            },
+            'Virgo': { 
+                symbol: '♍', 
+                element: 'Earth', 
+                dates: 'August 23 - September 22',
+                traits: ['Analytical', 'Helpful', 'Practical', 'Perfectionist', 'Organized', 'Modest'],
+                compatibility: ['Taurus', 'Capricorn', 'Cancer', 'Scorpio'],
+                ruling: 'Mercury',
+                color: '#6BCF7F'
+            },
+            'Libra': { 
+                symbol: '♎', 
+                element: 'Air', 
+                dates: 'September 23 - October 22',
+                traits: ['Diplomatic', 'Balanced', 'Social', 'Artistic', 'Charming', 'Indecisive'],
+                compatibility: ['Gemini', 'Aquarius', 'Leo', 'Sagittarius'],
+                ruling: 'Venus',
+                color: '#FFB6C1'
+            },
+            'Scorpio': { 
+                symbol: '♏', 
+                element: 'Water', 
+                dates: 'October 23 - November 21',
+                traits: ['Intense', 'Passionate', 'Mysterious', 'Transformative', 'Loyal', 'Secretive'],
+                compatibility: ['Cancer', 'Pisces', 'Virgo', 'Capricorn'],
+                ruling: 'Pluto',
+                color: '#8E44AD'
+            },
+            'Sagittarius': { 
+                symbol: '♐', 
+                element: 'Fire', 
+                dates: 'November 22 - December 21',
+                traits: ['Adventurous', 'Optimistic', 'Philosophical', 'Freedom-loving', 'Honest', 'Restless'],
+                compatibility: ['Aries', 'Leo', 'Libra', 'Aquarius'],
+                ruling: 'Jupiter',
+                color: '#E67E22'
+            },
+            'Capricorn': { 
+                symbol: '♑', 
+                element: 'Earth', 
+                dates: 'December 22 - January 19',
+                traits: ['Ambitious', 'Disciplined', 'Practical', 'Responsible', 'Patient', 'Reserved'],
+                compatibility: ['Taurus', 'Virgo', 'Scorpio', 'Pisces'],
+                ruling: 'Saturn',
+                color: '#34495E'
+            },
+            'Aquarius': { 
+                symbol: '♒', 
+                element: 'Air', 
+                dates: 'January 20 - February 18',
+                traits: ['Independent', 'Innovative', 'Humanitarian', 'Eccentric', 'Progressive', 'Detached'],
+                compatibility: ['Gemini', 'Libra', 'Aries', 'Sagittarius'],
+                ruling: 'Uranus',
+                color: '#3498DB'
+            },
+            'Pisces': { 
+                symbol: '♓', 
+                element: 'Water', 
+                dates: 'February 19 - March 20',
+                traits: ['Compassionate', 'Intuitive', 'Artistic', 'Dreamy', 'Empathetic', 'Sensitive'],
+                compatibility: ['Cancer', 'Scorpio', 'Taurus', 'Capricorn'],
+                ruling: 'Neptune',
+                color: '#9B59B6'
+            }
+        };
+
+        // Numerology data
+        const numerologyData = {
+            1: { 
+                title: 'The Leader', 
+                traits: ['Independent', 'Pioneering', 'Ambitious', 'Original', 'Strong-willed', 'Confident'],
+                description: 'You are a natural born leader with incredible drive and determination. Your pioneering spirit pushes you to break new ground and create your own path in life.'
+            },
+            2: { 
+                title: 'The Diplomat', 
+                traits: ['Cooperative', 'Peaceful', 'Sensitive', 'Partner-oriented', 'Harmonious', 'Supportive'],
+                description: 'You excel in partnerships and collaboration. Your diplomatic nature and sensitivity make you an excellent mediator and team player.'
+            },
+            3: { 
+                title: 'The Communicator', 
+                traits: ['Creative', 'Expressive', 'Social', 'Optimistic', 'Artistic', 'Inspiring'],
+                description: 'You have a gift for communication and creativity. Your natural charisma and artistic abilities inspire others and bring joy wherever you go.'
+            },
+            4: { 
+                title: 'The Builder', 
+                traits: ['Practical', 'Organized', 'Loyal', 'Hard-working', 'Reliable', 'Methodical'],
+                description: 'You are the foundation upon which great things are built. Your practical nature and strong work ethic make you incredibly reliable and trustworthy.'
+            },
+            5: { 
+                title: 'The Explorer', 
+                traits: ['Adventurous', 'Freedom-loving', 'Curious', 'Dynamic', 'Versatile', 'Progressive'],
+                description: 'You crave freedom and adventure. Your curiosity and dynamic nature drive you to explore new horizons and embrace change with enthusiasm.'
+            },
+            6: { 
+                title: 'The Nurturer', 
+                traits: ['Caring', 'Responsible', 'Family-oriented', 'Healing', 'Compassionate', 'Protective'],
+                description: 'You are driven by a deep desire to care for others. Your nurturing nature and sense of responsibility make you a natural healer and protector.'
+            },
+            7: { 
+                title: 'The Seeker', 
+                traits: ['Spiritual', 'Analytical', 'Introspective', 'Mystical', 'Wise', 'Intuitive'],
+                description: 'You are on a quest for deeper understanding and spiritual truth. Your analytical mind and intuitive nature help you uncover hidden wisdom.'
+            },
+            8: { 
+                title: 'The Achiever', 
+                traits: ['Ambitious', 'Material success', 'Powerful', 'Business-minded', 'Authoritative', 'Goal-oriented'],
+                description: 'You are destined for material success and positions of authority. Your business acumen and determination help you achieve your ambitious goals.'
+            },
+            9: { 
+                title: 'The Humanitarian', 
+                traits: ['Compassionate', 'Generous', 'Idealistic', 'Universal love', 'Wise', 'Selfless'],
+                description: 'You are driven by a desire to serve humanity. Your compassionate nature and idealistic vision inspire you to make the world a better place.'
+            }
+        };
+
+        // Get zodiac sign
+        function getZodiacSign(date) {
+            const d = new Date(date);
+            const month = d.getMonth() + 1;
+            const day = d.getDate();
+
+            if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return 'Aries';
+            if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return 'Taurus';
+            if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return 'Gemini';
+            if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return 'Cancer';
+            if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return 'Leo';
+            if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return 'Virgo';
+            if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return 'Libra';
+            if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return 'Scorpio';
+            if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return 'Sagittarius';
+            if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) return 'Capricorn';
+            if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return 'Aquarius';
+            if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) return 'Pisces';
+            return null;
+        }
+
+        // Calculate numerology
+        function calculateNumerology(name) {
+            const letterValues = {
+                A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8, I: 9,
+                J: 1, K: 2, L: 3, M: 4, N: 5, O: 6, P: 7, Q: 8, R: 9,
+                S: 1, T: 2, U: 3, V: 4, W: 5, X: 6, Y: 7, Z: 8
+            };
+
+            const cleanName = name.toUpperCase().replace(/[^A-Z]/g, '');
+            const vowels = 'AEIOU';
+            
+            let totalSum = 0;
+            let vowelSum = 0;
+            let consonantSum = 0;
+
+            for (let char of cleanName) {
+                const value = letterValues[char] || 0;
+                totalSum += value;
+                if (vowels.includes(char)) {
+                    vowelSum += value;
+                } else {
+                    consonantSum += value;
+                }
+            }
+
+            const reduceToSingle = (num) => {
+                while (num > 9 && num !== 11 && num !== 22 && num !== 33) {
+                    num = num.toString().split('').reduce((sum, digit) => sum + parseInt(digit), 0);
+                }
+                return num;
+            };
+
+            return {
+                expression: reduceToSingle(totalSum),
+                soulUrge: reduceToSingle(vowelSum),
+                personality: reduceToSingle(consonantSum)
+            };
+        }
+
+        // Calculate age
+        function calculateAge(birthDate) {
+            const today = new Date();
+            const birth = new Date(birthDate);
+            let age = today.getFullYear() - birth.getFullYear();
+            const monthDiff = today.getMonth() - birth.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            
+            return age;
+        }
+
+        // Main calculation function
+        function calculateCosmicProfile() {
+            const birthDate = document.getElementById('birthDate').value;
+            const fullName = document.getElementById('fullName').value;
+
+            if (!birthDate || !fullName.trim()) {
+                alert('🌟 Please enter both your birth date and full name to unlock your cosmic destiny! ✨');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loading').classList.add('show');
+            document.getElementById('calculateBtn').disabled = true;
+
+            setTimeout(() => {
+                const zodiac = getZodiacSign(birthDate);
+                const numerology = calculateNumerology(fullName);
+                const age = calculateAge(birthDate);
+                const birthDateFormatted = new Date(birthDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+
+                if (!zodiac) {
+                    alert('🌌 Invalid birth date! Please select a valid date to uncover your cosmic destiny. ✨');
+                    document.getElementById('loading').classList.remove('show');
+                    document.getElementById('calculateBtn').disabled = false;
+                    return;
+                }
+
+                displayResults(zodiac, numerology, age, birthDateFormatted, fullName);
+                
+                // Hide loading and show results
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('calculateBtn').disabled = false;
+                document.getElementById('results').classList.add('show');
+                
+                // Scroll to results
+                document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+            }, 1200);
+        }
+
+        // Display results
+        function displayResults(zodiac, numerology, age, birthDate, name) {
+            const zodiacInfo = zodiacData[zodiac];
+            
+            // Profile Info
+            document.getElementById('profileInfo').innerHTML = `
+                <div class="info-item">
+                    <h3><i class="fas fa-user"></i> Name</h3>
+                    <p>${name}</p>
+                </div>
+                <div class="info-item">
+                    <h3><i class="fas fa-birthday-cake"></i> Born</h3>
+                    <p>${birthDate}</p>
+                </div>
+                <div class="info-item">
+                    <h3><i class="fas fa-hourglass-half"></i> Age</h3>
+                    <p>${age} years old</p>
+                </div>
+                <div class="info-item">
+                    <h3><i class="fas fa-star"></i> Element</h3>
+                    <p>${zodiacInfo.element}</p>
+                </div>
+            `;
+
+            // Zodiac Info
+            document.getElementById('zodiacCard').innerHTML = `
+                <div class="zodiac-symbol" style="color: ${zodiacInfo.color}">${zodiacInfo.symbol}</div>
+                <div class="zodiac-name">${zodiac}</div>
+                <p style="color: rgba(255,255,255,0.9); font-size: clamp(1.1rem, 2.5vw, 1.2rem); margin-bottom: 2rem;">
+                    ${zodiacInfo.dates} • ${zodiacInfo.element} Sign • Ruled by ${zodiacInfo.ruling}
+                </p>
+                <div class="zodiac-details">
+                    <div class="detail-group">
+                        <h3 style="color: var(--white); margin-bottom: 1.2rem;"><i class="fas fa-gem"></i> Core Traits</h3>
+                        <div class="traits-grid">
+                            ${zodiacInfo.traits.map(trait => `<span class="trait-tag">${trait}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="detail-group">
+                        <h3 style="color: var(--white); margin-bottom: 1.2rem;"><i class="fas fa-heart"></i> Most Compatible With</h3>
+                        <div class="traits-grid">
+                            ${zodiacInfo.compatibility.map(sign => `<span class="trait-tag">${zodiacData[sign].symbol} ${sign}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Numerology Grid
+            document.getElementById('numerologyGrid').innerHTML = `
+                <div class="glass-card number-card expression">
+                    <div class="number-display" style="color: #FF69B4">${numerology.expression}</div>
+                    <div class="number-title">Expression Number</div>
+                    <div class="number-subtitle">${numerologyData[numerology.expression].title}</div>
+                    <div class="traits-grid">
+                        ${numerologyData[numerology.expression].traits.map(trait => `<span class="trait-tag">${trait}</span>`).join('')}
+                    </div>
+                </div>
+                <div class="glass-card number-card soul">
+                    <div class="number-display" style="color: #00BFFF">${numerology.soulUrge}</div>
+                    <div class="number-title">Soul Urge Number</div>
+                    <div class="number-subtitle">${numerologyData[numerology.soulUrge].title}</div>
+                    <div class="traits-grid">
+                        ${numerologyData[numerology.soulUrge].traits.map(trait => `<span class="trait-tag">${trait}</span>`).join('')}
+                    </div>
+                </div>
+                <div class="glass-card number-card personality">
+                    <div class="number-display" style="color: #32CD32">${numerology.personality}</div>
+                    <div class="number-title">Personality Number</div>
+                    <div class="number-subtitle">${numerologyData[numerology.personality].title}</div>
+                    <div class="traits-grid">
+                        ${numerologyData[numerology.personality].traits.map(trait => `<span class="trait-tag">${trait}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Analysis Content
+            document.getElementById('analysisContent').innerHTML = `
+                <p><strong>Your Zodiac Analysis:</strong> As a ${zodiac}, you channel the vibrant ${zodiacInfo.element} element. Guided by ${zodiacInfo.ruling}, your ${zodiacInfo.traits.slice(0, 3).join(', ').toLowerCase()} essence lights up your cosmic path.</p>
+                <p><strong>Your Numerological Blueprint:</strong> Your Expression Number ${numerology.expression} reveals that ${numerologyData[numerology.expression].description}</p>
+                <p><strong>Your Soul's Desire:</strong> With a Soul Urge Number of ${numerology.soulUrge}, ${numerologyData[numerology.soulUrge].description}</p>
+                <p><strong>How Others See You:</strong> Your Personality Number ${numerology.personality} shows that ${numerologyData[numerology.personality].description}</p>
+                <p><strong>Cosmic Synthesis:</strong> Your ${zodiac} sun sign and ${numerologyData[numerology.expression].title} essence create a stellar signature. This fusion of ${zodiacInfo.element} energy and ${numerologyData[numerology.expression].traits[0].toLowerCase()} spirit sets you on a path of epic achievements.</p>
+            `;
+
+            // Compatibility Grid
+            document.getElementById('compatibilityGrid').innerHTML = `
+                ${zodiacInfo.compatibility.map(sign => `
+                    <div class="compatibility-item">
+                        <div style="font-size: clamp(1.8rem, 5vw, 2.2rem); margin-bottom: 0.6rem;">${zodiacData[sign].symbol}</div>
+                        <h4 style="color: var(--white); margin-bottom: 0.6rem;">${sign}</h4>
+                        <p style="color: rgba(255,255,255,0.9); font-size: clamp(0.9rem, 2.5vw, 1rem);">
+                            ${zodiacData[sign].element} • ${zodiacData[sign].traits.slice(0, 2).join(', ')}
+                        </p>
+                    </div>
+                `).join('')}
+            `;
+        }
+
+        // Share Destiny
+        function shareDestiny() {
+            const zodiac = document.querySelector('.zodiac-name')?.textContent || 'Cosmic Voyager';
+            const shareText = `I'm a ${zodiac} with a stellar cosmic destiny! 🌟 Discover yours! ✨`;
+            const shareUrl = window.location.href;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My Cosmic Destiny',
+                    text: shareText,
+                    url: shareUrl
+                }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(`${shareText} ${shareUrl}`).then(() => {
+                    alert('Cosmic destiny copied to clipboard! Share it with your starry friends! 🚀');
+                }).catch(console.error);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            // Attach event listeners
+            document.getElementById('calculateBtn').addEventListener('click', calculateCosmicProfile);
+            document.getElementById('shareBtn').addEventListener('click', shareDestiny);
+            // Add enter key support for inputs
+            document.querySelectorAll('.input-field').forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        calculateCosmicProfile();
+                    }
+                });
+            });
+        });
+
+        // Resize handler for stars
+        window.addEventListener('resize', function() {
+            document.getElementById('stars').innerHTML = '';
+            createStars();
+        });
+    </script>
+</body>
+</html>
